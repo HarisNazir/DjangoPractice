@@ -1,13 +1,27 @@
 from django.shortcuts import render
 from .forms import GetCountry
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+import requests
+from .generatefile import generateExcelFile, download_file
+import json
 
-# Create your views here.
+
+
 def GetCountryCode(request):
-    form = GetCountry()
-    return render(request, "getcountry.html", {'form': form})
+    if request.method == 'GET':
+        form = GetCountry()
+        return render(request, "getcountry.html", {'form': form})
+    elif request.method == 'POST':
+        form = GetCountry(request.POST)
+        if form.is_valid():
+            iso_code = form.cleaned_data['iso3']
+            return GenerateExcel(iso_code)
+    
+def GenerateExcel(iso_code):
+    res = requests.get(f"https://restcountries.eu/rest/v2/alpha/{iso_code}")
+    data = res.json()
+    generateExcelFile(data)
+    return download_file()
+    
 
-def GenerateExcel(request):
-    file =
-        
