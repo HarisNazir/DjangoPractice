@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from .forms import GetCountry
+from .forms import GetCountry, UploadExcel
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 import requests
 from .generatefile import generateExcelFile, download_file
 import json
+from .ExcelToModel import AddToModel
 
 
 
@@ -24,4 +25,11 @@ def GenerateExcel(iso_code):
     generateExcelFile(data)
     return download_file()
     
-
+def UploadFile(request):
+    if request.method == 'GET':
+        form = UploadExcel()
+        return render(request, "fileupload.html", {'form': form})
+    elif request.method =='POST':
+        form = UploadExcel(request.POST)
+        if form.is_valid():
+            return AddToModel(form)

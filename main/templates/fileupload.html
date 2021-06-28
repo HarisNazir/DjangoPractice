@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Get Country</title>
+    </head>
+
+    <body>
+        <h1>Upload File</h1>
+        <form action="/upload" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Upload"></input>
+        </form>
+    </body>
+</html>
