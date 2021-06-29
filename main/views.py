@@ -32,7 +32,7 @@ def UploadFile(request):
     elif request.method =='POST':
         form = UploadExcel(request.POST, request.FILES)
         if form.is_valid():
-            AddToModel(form)
+            AddToModel(form.cleaned_data['file'])
             return HttpResponse("Data Added")
         else:
             return render(request, "fileupload.html", {'form': form})

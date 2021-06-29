@@ -6,7 +6,7 @@ from django.http import FileResponse
 def generateExcelFile(data):
     wb = Workbook()
     ws = wb.active
-    ws['A1'] = data.get('alpha3code')
+    ws['A1'] = data.get('alpha3Code')
     country_name = data.get('name')
     ws['B1'] = (f'Monthly data for {country_name}')
     ws['B3'] = ('Beneficiaries assisted (Male):')
