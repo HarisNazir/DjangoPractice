@@ -12,10 +12,9 @@ def AddToModel(response):
     cash_value = ws['C5']
     country_iso = ws['A1']
     
-    return MonthlyDataUpload.objects.create(
+    MonthlyDataUpload.objects.create(
         beneficiaries_assisted_males = 'male_beneficiaries',
         beneficiaries_assisted_females = female_beneficiaries,
         cash_value = 'cash_value',
         country_iso = 'country_iso3'
-
     )

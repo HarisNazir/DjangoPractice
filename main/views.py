@@ -31,5 +31,9 @@ def UploadFile(request):
         return render(request, "fileupload.html", {'form': form})
     elif request.method =='POST':
         form = UploadExcel(request.POST)
+        breakpoint()
         if form.is_valid():
-            return AddToModel(form)
+            AddToModel(form)
+            return HttpResponse("Data Added")
+        else:
+            return render(request, "fileupload.html", {'form': form})
