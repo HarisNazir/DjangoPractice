@@ -46,4 +46,6 @@ class UploadScreen(FormView):
     success_url = "/"
 
     def form_valid(self, form):
-        AddToModel(form.cleaned_data)
+        AddToModel(form.cleaned_data['file'])
+
+        return super().form_valid(form)
