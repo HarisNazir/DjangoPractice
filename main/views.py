@@ -1,3 +1,4 @@
+from main.models import MonthlyDataUpload
 from django.shortcuts import render
 from .forms import GetCountry, UploadExcel
 from django.http import HttpResponse, HttpResponseRedirect
@@ -7,6 +8,8 @@ from .generatefile import generateExcelFile, download_file
 import json
 from .ExcelToModel import AddToModel
 from django.views.generic.edit import FormView
+from rest_framework import viewsets
+from .serliazer import MonthlyDataUploadSeralizer
 
 
 
@@ -49,3 +52,7 @@ class UploadScreen(FormView):
         AddToModel(form.cleaned_data['file'])
 
         return super().form_valid(form)
+
+class MonthlyDataUploadViewSet(viewsets.ModelViewSet):
+    queryset = MonthlyDataUpload.objects.all().order_by('id')
+    serializer_class = MonthlyDataUploadSeralizer
