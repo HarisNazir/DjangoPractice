@@ -6,6 +6,7 @@ import requests
 from .generatefile import generateExcelFile, download_file
 import json
 from .ExcelToModel import AddToModel
+from django.views.generic.edit import FormView
 
 
 
@@ -30,9 +31,19 @@ def UploadFile(request):
         form = UploadExcel()
         return render(request, "fileupload.html", {'form': form})
     elif request.method =='POST':
+        breakpoint()
         form = UploadExcel(request.POST, request.FILES)
+        
         if form.is_valid():
             AddToModel(form.cleaned_data['file'])
             return HttpResponse("Data Added")
         else:
             return render(request, "fileupload.html", {'form': form})
+
+class UploadScreen(FormView):
+    template_name = "fileupload.html"
+    form_class = UploadExcel
+    success_url = "/"
+
+    def form_valid(self, form):
+        AddToModel(form.cleaned_data)
