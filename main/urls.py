@@ -1,10 +1,11 @@
+from main.models import MonthlyDataUpload
 from django.urls import path, include
 
 from . import views
 
 from rest_framework import routers
 
-router = routers.SimpleRouter()
+router = routers.DefaultRouter()
 router.register(r'MonthlyDataUpload', views.MonthlyDataUploadViewSet)
 
 urlpatterns = [
@@ -13,4 +14,5 @@ urlpatterns = [
     path('upload/', views.UploadFile, name="Upload Excel"),
     path('uploadscreen/',views.UploadScreen.as_view(), name="Upload Screen"),
     path('/api', include('rest_framework.urls', namespace='rest_framework')),
+    path('', include(router.urls))
 ]

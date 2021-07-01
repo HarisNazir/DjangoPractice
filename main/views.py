@@ -34,7 +34,6 @@ def UploadFile(request):
         form = UploadExcel()
         return render(request, "fileupload.html", {'form': form})
     elif request.method =='POST':
-        breakpoint()
         form = UploadExcel(request.POST, request.FILES)
         
         if form.is_valid():
