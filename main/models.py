@@ -8,3 +8,9 @@ class MonthlyDataUpload(models.Model):
     beneficiaries_assisted_females = models.IntegerField()
     cash_value = models.IntegerField()
     country_iso3 = models.CharField(max_length=3)
+
+class ExcelGenerationRequest(models.Model):
+    id = models.AutoField(primary_key=True)
+    country = models.CharField()
+    status = models.CharField()
+    generated_file = models.CharField()
